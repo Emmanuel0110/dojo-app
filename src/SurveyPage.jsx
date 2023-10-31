@@ -9,7 +9,7 @@ function SurveyPage() {
   const [results, setResults] = useState({});
 
   const generateQRcode = () => {
-    fetch('/generate-qr-code', {
+    fetch('/api/generate-qr-code', {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({numberOptions: parseInt(numberOfOptions)})
@@ -18,7 +18,7 @@ function SurveyPage() {
   };
 
   const seeResults = () => {
-    fetch('/results?surveyId=' + surveyId, {
+    fetch('/api/results?surveyId=' + surveyId, {
       method: 'get',
       headers: {'Content-Type':'application/json'},
     }).then(response => response.json()).then((results) => results && setResults(results));

@@ -10,7 +10,7 @@ function SurveyForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/numberoptions?surveyId=${surveyId}`, {
+    fetch(`/api/numberoptions?surveyId=${surveyId}`, {
       method: 'get',
       headers: {'Content-Type':'application/json'},
      }).then(response => response.json()).then(({numberOptions}) => {
@@ -21,7 +21,7 @@ function SurveyForm() {
 
   const handleSubmit = (event) => { 
     event.preventDefault();
-    fetch('/vote', {
+    fetch('/api/vote', {
      method: 'post',
      headers: {'Content-Type':'application/json'},
      body: JSON.stringify({surveyId , vote: createDict(choices)})
