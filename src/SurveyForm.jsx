@@ -31,10 +31,18 @@ function SurveyForm() {
 
   const createDict = (arr) => {
     return arr.reduce((acc, currentValue, index) => {
-      console.log(acc, currentValue, index);
-      return {...acc, [currentValue]: arr.length - index};
+      if (charIsLetter(currentValue)) {
+        return {...acc, [currentValue.toUpperCase()]: arr.length - index};
+      } else return acc;
     }, {});
   } 
+
+  function charIsLetter(char) {
+    if (typeof char !== 'string') {
+      return false;
+    }
+    return /^[a-zA-Z]+$/.test(char);
+  }
 
   return <div id="surveyForm">
     <form onSubmit={handleSubmit}>
