@@ -47,9 +47,8 @@ function SurveyForm() {
   return <div id="surveyForm">
     <form onSubmit={handleSubmit}>
     {Array.from({length: maxNumberOfPoints(numberOfOptions)},(_, index) => index).map((lineNumber) => {
-      return <div>
+      return <div key={lineNumber}>
         <input onChange={e => {
-          //setChoices({...choices, [e.currentTarget.value] : maxNumberOfPoints(numberOfOptions) - lineNumber});
           setChoices(choices.map((el, index) => {
             if (index === lineNumber) {
               return e.currentTarget.value;

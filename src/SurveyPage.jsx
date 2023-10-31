@@ -34,7 +34,7 @@ function SurveyPage() {
     <br/>
     <div>{results.votes && Object.entries(results.votes)
      .sort((a,b) => b[1] - a[1])
-     .map(entry => <div>{entry[0] + " : " + entry[1]}</div>)
+     .map((entry, index) => <div key={index}>{entry[0] + " : " + entry[1]}</div>)
     }</div>
   </div>;
 }
