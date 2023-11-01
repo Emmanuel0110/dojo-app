@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode> // TODO : try again with strict mode
-  <BrowserRouter basename="/survey-dojo">
+  <BrowserRouter basename="/dojoSurvey">
     <App />
   </BrowserRouter>
   //</React.StrictMode>

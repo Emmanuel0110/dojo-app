@@ -1,7 +1,6 @@
 import { useState } from "react";
 import QRCode from "react-qr-code";
-
-export const baseUrl = "http://localhost:3000/survey-dojo";
+import { baseUrl } from "./App";
 
 function SurveyPage() {
   const [numberOfOptions, setNumberOfOptions] = useState("");
@@ -9,7 +8,7 @@ function SurveyPage() {
   const [results, setResults] = useState({});
 
   const generateQRcode = () => {
-    fetch('/api/generate-qr-code', {
+    fetch(baseUrl + 'generate-qr-code', {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({numberOptions: parseInt(numberOfOptions)})
@@ -18,7 +17,7 @@ function SurveyPage() {
   };
 
   const seeResults = () => {
-    fetch('/api/results?surveyId=' + surveyId, {
+    fetch(baseUrl + 'results?surveyId=' + surveyId, {
       method: 'get',
       headers: {'Content-Type':'application/json'},
     }).then(response => response.json()).then((results) => results && setResults(results));
@@ -28,8 +27,8 @@ function SurveyPage() {
     <input onChange={e => setNumberOfOptions(e.currentTarget.value)} placeholder="Number of options" type="number"/>
     <button onClick={generateQRcode}>Generate QR code</button>
     <button onClick={seeResults}>See results</button>
-    {surveyId !== "" && <div id="qrCode"><QRCode value={baseUrl + "/" + surveyId} /></div>}
-    {surveyId !== "" &&  process.env.NODE_ENV === 'development' && baseUrl + "/" + surveyId}
+    {surveyId !== "" && <div id="qrCode"><QRCode value={window.location.href + "/" + surveyId} /></div>}
+    {surveyId !== "" &&  process.env.NODE_ENV === 'development' && window.location.href + "/" + surveyId}
     <div>{typeof(results.numberVotes) === "number" && "Number of votes : " + results.numberVotes}</div>
     <br/>
     <div>{results.votes && Object.entries(results.votes)

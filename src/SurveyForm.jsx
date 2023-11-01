@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { baseUrl } from "./App";
 
 const maxNumberOfPoints = numberOfOptions => Math.floor(numberOfOptions/2);
 
@@ -10,7 +11,7 @@ function SurveyForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/api/numberoptions?surveyId=${surveyId}`, {
+    fetch(`${baseUrl}numberoptions?surveyId=${surveyId}`, {
       method: 'get',
       headers: {'Content-Type':'application/json'},
      }).then(response => response.json()).then(({numberOptions}) => {
@@ -21,7 +22,7 @@ function SurveyForm() {
 
   const handleSubmit = (event) => { 
     event.preventDefault();
-    fetch('/api/vote', {
+    fetch(baseUrl + 'vote', {
      method: 'post',
      headers: {'Content-Type':'application/json'},
      body: JSON.stringify({surveyId , vote: createDict(choices)})

@@ -5,6 +5,12 @@ import SurveyForm from './SurveyForm';
 import SurveyPage from './SurveyPage';
 import Done from './Done';
 
+export let baseUrl = '/api/';
+
+if (process.env.NODE_ENV === 'production'){
+  baseUrl = process.env.PUBLIC_URL + baseUrl;
+}
+
 function App() {
   return (
     <div className="App">
