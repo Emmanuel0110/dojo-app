@@ -28,7 +28,7 @@ function SurveyPage() {
     <button onClick={generateQRcode}>Generate QR code</button>
     <button onClick={seeResults}>See results</button>
     {surveyId !== "" && <div id="qrCode"><QRCode value={window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId} /></div>}
-    {surveyId !== "" &&  process.env.NODE_ENV === 'development' && window.location.href + "/" + surveyId}
+    {surveyId !== "" &&  process.env.NODE_ENV === 'development' && window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId}
     <div>{typeof(results.numberVotes) === "number" && "Number of votes : " + results.numberVotes}</div>
     <br/>
     <div>{results.votes && Object.entries(results.votes)
