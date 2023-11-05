@@ -27,7 +27,7 @@ function SurveyPage() {
     <input onChange={e => setNumberOfOptions(e.currentTarget.value)} placeholder="Number of options" type="number"/>
     <button onClick={generateQRcode}>Generate QR code</button>
     <button onClick={seeResults}>See results</button>
-    {surveyId !== "" && <div id="qrCode"><QRCode value={window.location.href + "/" + surveyId} /></div>}
+    {surveyId !== "" && <div id="qrCode"><QRCode value={window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId} /></div>}
     {surveyId !== "" &&  process.env.NODE_ENV === 'development' && window.location.href + "/" + surveyId}
     <div>{typeof(results.numberVotes) === "number" && "Number of votes : " + results.numberVotes}</div>
     <br/>
