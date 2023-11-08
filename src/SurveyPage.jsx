@@ -1,3 +1,5 @@
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import QRCode from "react-qr-code";
 import { baseUrl } from "./App";
@@ -8,12 +10,14 @@ function SurveyPage() {
   const [results, setResults] = useState({});
 
   const generateQRcode = () => {
-    fetch(baseUrl + 'generate-qr-code', {
-      method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({numberOptions: parseInt(numberOfOptions)})
-    }).then(response => response.text())
-    .then((id) => typeof(id) === "string" && setSurveyId(id))
+    if (parseInt(numberOfOptions) >= 2) {
+      fetch(baseUrl + 'generate-qr-code', {
+        method: 'post',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({numberOptions: parseInt(numberOfOptions)})
+      }).then(response => response.text())
+      .then((id) => typeof(id) === "string" && setSurveyId(id))
+    }
   };
 
   const seeResults = () => {
@@ -24,17 +28,24 @@ function SurveyPage() {
   };
 
   return <div id="surveyPage">
-    <input onChange={e => setNumberOfOptions(e.currentTarget.value)} placeholder="Number of options" type="number"/>
-    <button onClick={generateQRcode}>Generate QR code</button>
-    <button onClick={seeResults}>See results</button>
-    {surveyId !== "" && <div id="qrCode"><QRCode value={window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId} /></div>}
-    {surveyId !== "" &&  process.env.NODE_ENV === 'development' && window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId}
+    {surveyId === "" ? 
+      <div>
+        <Form.Control onChange={e => setNumberOfOptions(e.currentTarget.value)} placeholder="Number of options" type="number"/><br/>
+        <Button variant="primary" onClick={generateQRcode}>Generate QR code</Button>
+      </div> 
+    : <div>
+        <div id="qrCode"><QRCode value={window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId} /></div><br/>
+        {process.env.NODE_ENV === 'development' && window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId}
+        <Button variant="primary" onClick={seeResults}>See results</Button>
+      </div>
+    }
+    <br/>
     <div>{typeof(results.numberVotes) === "number" && "Number of votes : " + results.numberVotes}</div>
     <br/>
-    <div>{results.votes && Object.entries(results.votes)
+    <div><table>{results.votes && Object.entries(results.votes)
      .sort((a,b) => b[1] - a[1])
-     .map((entry, index) => <div key={index}>{entry[0] + " : " + entry[1]}</div>)
-    }</div>
+     .map((entry, index) => <tr key={index}><td style={{width: "20px"}}>{entry[0]}</td><td><div style={{backgroundColor: "grey" , width:`${entry[1] * (200 / Math.max(...Object.values(results.votes))) }px`, height: "30px", color: "lightgrey"}}>{entry[1]}</div></td></tr>)
+    }</table></div>
   </div>;
 }
 

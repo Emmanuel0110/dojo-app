@@ -1,3 +1,5 @@
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { baseUrl } from "./App";
@@ -49,7 +51,7 @@ function SurveyForm() {
     <form onSubmit={handleSubmit}>
     {Array.from({length: maxNumberOfPoints(numberOfOptions)},(_, index) => index).map((lineNumber) => {
       return <div key={lineNumber}>
-        <input onChange={e => {
+        <Form.Control onChange={e => {
           setChoices(choices.map((el, index) => {
             if (index === lineNumber) {
               return e.currentTarget.value;
@@ -60,8 +62,7 @@ function SurveyForm() {
           }} placeholder={"Choice " + (lineNumber + 1).toString()} type="text"/><br />   
       </div>;
     })}
-       <br/>
-       <button type="Submit">Submit</button>
+       <Button type="Submit">Submit</Button>
     </form>
   </div>;
 }

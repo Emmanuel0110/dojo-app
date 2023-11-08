@@ -1,38 +1,34 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  height: 100vh;
+  background-color: #5d1343;
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#surveyPage, #surveyForm {
+  padding: 1rem;
+  width: 300px;
+  margin: 25px auto;
+  background-color: white;
+  border-radius: 12px;
+  border: 3px solid #bc6d96;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+#done {
   color: white;
+  font-size: 4ch;
+  margin: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+#doneSubtext{
+  font-size: 1ch; 
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+table td {
+  border: 5px solid white;
 }
