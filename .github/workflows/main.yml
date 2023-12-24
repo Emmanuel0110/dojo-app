@@ -32,4 +32,4 @@ jobs:
           npm run build
           cp -a build/. ../backend/public/
           npm install --only=prod
-          pm2 restart server.js -n dojo
+          pm2 restart index.js -n dojo
