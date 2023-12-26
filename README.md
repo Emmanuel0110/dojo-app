@@ -1,3 +1,3 @@
-Start backend command: node server.js
+Start backend command: `node index.js`
 
-Start frontend command: npm start
+Start frontend command: `npm start`
