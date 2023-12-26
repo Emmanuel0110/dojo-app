@@ -11,7 +11,7 @@ MONGO_CLUSTER = 'cluster_name'
 
 MONGO_DBNAME = 'db_name'
   
-PORT = 5001  
+(in production only: PORT = 5001)
 
 ## Start backend command
 (First time only : `npm i`)
@@ -20,7 +20,7 @@ PORT = 5001
 
 ## .env file in the frontend directory
 
-PUBLIC_URL = 'public_url'  
+(in production only: PUBLIC_URL = 'public_url')
 
 ## Start frontend command
 (First time only : `npm i`)
