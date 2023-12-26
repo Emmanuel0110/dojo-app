@@ -14,6 +14,8 @@ MONGO_DBNAME = 'db_name'
 PORT = 5001  
 
 ## Start backend command
+(First time only : `npm i`)
+
 `node index.js`
 
 ## .env file in the frontend directory
@@ -21,4 +23,6 @@ PORT = 5001
 PUBLIC_URL = 'public_url'  
 
 ## Start frontend command
+(First time only : `npm i`)
+
 `npm start`
