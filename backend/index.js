@@ -92,7 +92,7 @@ export const SurveyModel = model('Survey', surveySchema);
 import mongoose from 'mongoose';
     mongoose.set('debug',true);
     mongoose.set('strictQuery', true);
-    mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.xorwi.mongodb.net/dojosurvey?retryWrites=true&w=majority`);
+    mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`);
     mongoose.Promise = Promise;
 
 var db = mongoose.connection;
