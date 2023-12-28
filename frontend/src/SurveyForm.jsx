@@ -47,7 +47,7 @@ function SurveyForm() {
     return /^[a-zA-Z]+$/.test(char);
   }
 
-  return <div id="surveyForm">
+  return <div id="surveyForm" className="white-rounded-corners">
     <form onSubmit={handleSubmit}>
     {Array.from({length: maxNumberOfPoints(numberOfOptions)},(_, index) => index).map((lineNumber) => {
       return <div key={lineNumber}>
