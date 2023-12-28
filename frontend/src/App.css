@@ -5,14 +5,12 @@
 }
 
 body {
-  height: 100vh;
   background-color: #5d1343;
-  overflow: auto;
 }
 
 #surveyPage{
   display: grid;
-  grid: "subjectList qrCodeArea" /1fr 1fr; 
+  grid: "subjectList qrCodeArea" /1fr 0.7fr; 
   min-height: 200px;
 }
 
@@ -26,7 +24,7 @@ body {
 
 .white-rounded-corners {
   padding: 1rem;
-  width: 80%;
+  width: 90%;
   margin: 25px auto;
   background-color: white;
   border-radius: 12px;

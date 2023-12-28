@@ -61,9 +61,11 @@ function SurveyPage() {
             </Button>
           </div>
         )}
-        <br />
-        <div>{typeof results.numberVotes === "number" && "Number of votes : " + results.numberVotes}</div>
-        <br />
+        {typeof results.numberVotes === "number" && <div>
+          <br/>
+            <div>{"Number of votes : " + results.numberVotes}</div>
+          <br/>
+        </div>}
         <div>
           <table>
             {results.votes &&
