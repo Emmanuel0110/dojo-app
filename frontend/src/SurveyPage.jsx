@@ -8,6 +8,7 @@ function SurveyPage() {
   const [numberOfOptions, setNumberOfOptions] = useState("");
   const [surveyId, setSurveyId] = useState("");
   const [results, setResults] = useState({});
+  const [qrCodeVisible, setQrCodeVisible] = useState(true);
 
   const generateQRcode = () => {
     if (parseInt(numberOfOptions) >= 2) {
@@ -21,7 +22,8 @@ function SurveyPage() {
     }
   };
 
-  const seeResults = () => {
+  const seeResultsOrQrCode = () => {
+    setQrCodeVisible(qrCodeVisible => !qrCodeVisible);
     fetch(baseUrl + "results?surveyId=" + surveyId, {
       method: "get",
       headers: { "Content-Type": "application/json" },
@@ -51,13 +53,13 @@ function SurveyPage() {
         ) : (
           <div>
             <div id="qrCode">
-              <QRCode style={{ height: "auto", maxWidth: "100%", width: "100%" }} value={window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId} />
+              <QRCode style={{width: "100%", height: qrCodeVisible ? "100%": 0}} value={window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId} />
             </div>
             <br />
             {process.env.NODE_ENV === "development" &&
               window.location.href + (window.location.href.endsWith("/") ? "" : "/") + surveyId}
-            <Button variant="primary" onClick={seeResults}>
-              See results
+            <Button variant="primary" onClick={seeResultsOrQrCode}>
+              {qrCodeVisible ? "See results" : "See QR-code"}
             </Button>
           </div>
         )}
@@ -70,7 +72,6 @@ function SurveyPage() {
           <table>
             {results.votes &&
               Object.entries(results.votes)
-                .sort((a, b) => b[1] - a[1])
                 .map((entry, index) => (
                   <tr key={index}>
                     <td style={{ width: "20px" }}>{entry[0]}</td>
@@ -80,7 +81,7 @@ function SurveyPage() {
                           backgroundColor: "grey",
                           width: `${entry[1] * (200 / Math.max(...Object.values(results.votes)))}px`,
                           height: "30px",
-                          color: "lightgrey",
+                          color: "white",
                         }}
                       >
                         {entry[1]}
