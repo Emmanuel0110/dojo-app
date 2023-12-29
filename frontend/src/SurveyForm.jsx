@@ -65,7 +65,7 @@ function SurveyForm() {
             }
           }))
           }} value={choices[lineNumber]}>
-          <option value="" disabled selected>{"Choice " + (lineNumber + 1).toString()}</option>
+          <option value="" disabled>{"Choice " + (lineNumber + 1).toString()}</option>
           {possibleValues.map(value => <option value={value}>{value}</option>)}
         </Form.Select>
         <br/>   
