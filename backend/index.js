@@ -26,6 +26,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.get('/api/events', (req, res) => {
+  if (req.query.surveyId){
+    SurveyModel.findById(req.query.surveyId)
+    .then(({numberVotes}) => {
+        res.send({numberVotes});
+    });
+  } else res.sendStatus(200);
+})
+
 app.get('/api/numberoptions', (req, res) => {
   if (req.query.surveyId){
     SurveyModel.findById(req.query.surveyId)

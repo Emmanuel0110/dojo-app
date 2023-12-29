@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import { baseUrl } from "./App";
 
@@ -8,7 +8,41 @@ function SurveyPage() {
   const [numberOfOptions, setNumberOfOptions] = useState("");
   const [surveyId, setSurveyId] = useState("");
   const [results, setResults] = useState({});
-  const [qrCodeVisible, setQrCodeVisible] = useState(true);
+  const [qrCodeVisible, setQrCodeVisible] = useState(false);
+
+  // TODO : try SSE
+  // useEffect(() => {  
+  //   const sse = new EventSource(baseUrl + 'events');  
+  //   function getRealtimeData(numberVotes) {
+  //     setResults(results => ({...results, numberVotes}));
+  //   }  
+  //   sse.onmessage = e => getRealtimeData(JSON.parse(e.data));
+  //   sse.onerror = e => {
+  //     console.log(e);    
+  //     sse.close();
+  //   }
+  //   return () => {
+  //     sse.close();
+  //   };
+  // }, []);
+
+  // const updateState = useCallback(async () => {
+  //   const response = await fetch(baseUrl + 'events?surveyId=' + surveyId);
+  //   const numberVotes = await response.json();
+  //   setResults(results => ({...results, numberVotes}));
+  // }, []);
+  useEffect(() => {
+    let myInterval;
+    if (qrCodeVisible) {
+      myInterval = setInterval(async () => {
+        const response = await fetch(baseUrl + 'events?surveyId=' + surveyId);
+        const {numberVotes} = await response.json();
+        setResults(results => ({...results, numberVotes}));
+      }, 2000);
+    } else {
+      clearInterval(myInterval);
+    }
+  }, [qrCodeVisible]);
 
   const generateQRcode = () => {
     if (parseInt(numberOfOptions) >= 2) {
@@ -18,7 +52,12 @@ function SurveyPage() {
         body: JSON.stringify({ numberOptions: parseInt(numberOfOptions) }),
       })
         .then((response) => response.text())
-        .then((id) => typeof id === "string" && setSurveyId(id));
+        .then((id) => {
+          if (typeof id === "string") {
+            setSurveyId(id)
+            setQrCodeVisible(true);
+          }
+        });
     }
   };
 
@@ -63,7 +102,7 @@ function SurveyPage() {
             </Button>
           </div>
         )}
-        {typeof results.numberVotes === "number" && <div>
+        {typeof results.numberVotes === "number" && results.numberVotes != 0 && <div>
           <br/>
             <div>{"Number of votes : " + results.numberVotes}</div>
           <br/>
