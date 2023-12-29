@@ -18,7 +18,7 @@ function SurveyForm() {
       headers: {'Content-Type':'application/json'},
      }).then(response => response.json()).then(({numberOptions}) => {
       if(typeof(numberOptions) === "number") setNumberOfOptions(numberOptions);
-      setChoices(new Array(Math.floor(numberOptions/2)).fill(0));
+      setChoices(new Array(Math.floor(numberOptions/2)).fill(''));
      });
   },[]);
   
@@ -64,7 +64,7 @@ function SurveyForm() {
               return el;
             }
           }))
-          }}>
+          }} value={choices[index]}>
           <option value="" disabled selected>{"Choice " + (lineNumber + 1).toString()}</option>
           {possibleValues.map(value => <option value={value}>{value}</option>)}
         </Form.Select>
