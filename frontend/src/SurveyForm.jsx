@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { baseUrl } from "./App";
 
@@ -8,7 +8,7 @@ const maxNumberOfPoints = numberOfOptions => Math.floor(numberOfOptions/2);
 
 function SurveyForm() {
   const [numberOfOptions, setNumberOfOptions] = useState(0);
-  const [choices, setChoices] = useState([]); //example : {A:4, C:3}
+  const [choices, setChoices] = useState([]);
   const {surveyId} = useParams();
   const navigate = useNavigate();
 
@@ -21,6 +21,11 @@ function SurveyForm() {
       setChoices(new Array(Math.floor(numberOptions/2)).fill(0));
      });
   },[]);
+  
+  const possibleValues = useMemo(() => {
+    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').slice(0, numberOfOptions).filter(el => !choices.includes(el));
+  },[numberOfOptions, choices]);
+  
 
   const handleSubmit = (event) => { 
     event.preventDefault();
@@ -51,7 +56,7 @@ function SurveyForm() {
     <form onSubmit={handleSubmit}>
     {Array.from({length: maxNumberOfPoints(numberOfOptions)},(_, index) => index).map((lineNumber) => {
       return <div key={lineNumber}>
-        <Form.Control onChange={e => {
+        <Form.Select onChange={e => {
           setChoices(choices.map((el, index) => {
             if (index === lineNumber) {
               return e.currentTarget.value;
@@ -59,7 +64,11 @@ function SurveyForm() {
               return el;
             }
           }))
-          }} placeholder={"Choice " + (lineNumber + 1).toString()} type="text"/><br />   
+          }}>
+          <option value="" disabled selected>{"Choice " + (lineNumber + 1).toString()}</option>
+          {possibleValues.map(value => <option value={el}>{el}</option>)}
+        </Form.Select>
+        <br/>   
       </div>;
     })}
        <Button type="Submit">Submit</Button>
