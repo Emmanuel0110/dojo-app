@@ -23,8 +23,8 @@ function SurveyForm() {
   },[]);
   
   const possibleValues = useMemo(() => {
-    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').slice(0, numberOfOptions).filter(el => !choices.includes(el));
-  },[numberOfOptions, choices]);
+    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').slice(0, numberOfOptions);
+  },[numberOfOptions]);
   
 
   const handleSubmit = (event) => { 
@@ -64,9 +64,9 @@ function SurveyForm() {
               return el;
             }
           }))
-          }} value={choices[lineNumber]}>
+          }}>
           <option value="" disabled>{"Choice " + (lineNumber + 1).toString()}</option>
-          {possibleValues.map(value => <option value={value}>{value}</option>)}
+          {possibleValues.map(value => <option value={value} disabled={choices.includes(value)}>{value}</option>)}
         </Form.Select>
         <br/>   
       </div>;
