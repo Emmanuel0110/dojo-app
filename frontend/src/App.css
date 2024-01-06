@@ -33,7 +33,7 @@ body {
   display: grid;
   grid: "done" 1fr
         "githubIconArea" 50px; 
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
 #done {
