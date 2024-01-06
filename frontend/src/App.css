@@ -10,8 +10,10 @@ body {
 
 #surveyPage{
   display: grid;
-  grid: "subjectList qrCodeArea" /1fr 0.7fr; 
-  min-height: 200px;
+  grid: "subjectList qrCodeArea" 1fr
+        "githubIconArea githubIconArea" 50px
+        /1fr 0.7fr; 
+  min-height: 100vh;
 }
 
 #subjectList{
@@ -20,6 +22,36 @@ body {
 
 #qrCodeArea{
   grid-area: qrCodeArea;
+}
+
+#githubIconArea{
+  grid-area: githubIconArea;
+  padding: 8px 8px;
+}
+
+#donePage{
+  display: grid;
+  grid: "done" 1fr
+        "githubIconArea" 50px; 
+  min-height: 100vh;
+}
+
+#done {
+  grid-area: done;
+  color: white;
+  font-size: 4ch;
+  padding: 20px;
+}
+
+.githubIcon{
+  cursor: pointer;
+  mask: url(./github-mark-white.svg);
+  background: rgb(255, 255, 255);
+  width: 39px;
+  height: 100%;
+  mask-repeat: no-repeat;
+  background-position: center;
+  float: right;
 }
 
 .white-rounded-corners {
@@ -41,12 +73,6 @@ textarea {
 #qrCode {
   width: 100%;
   height: 100%;
-}
-
-#done {
-  color: white;
-  font-size: 4ch;
-  margin: 20px;
 }
 
 #doneSubtext{
