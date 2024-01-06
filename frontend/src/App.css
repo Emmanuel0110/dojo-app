@@ -13,7 +13,7 @@ body {
   grid: "subjectList qrCodeArea" 1fr
         "githubIconArea githubIconArea" 50px
         /1fr 0.7fr; 
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
 #subjectList{
