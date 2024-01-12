@@ -73,7 +73,7 @@ function SurveyPage() {
         if (results) {
           setResults(results);
           setListOfOptions((listOfOptions) =>
-            listOfOptions.replace(/\s\d+\s-\s([A-Z])\s/g, (match, group) => `${results.votes[group] || 0} - ${group}`)
+            listOfOptions.replace(/\s\d+\s-\s([A-Z])\s/g, (match, group) => ` ${results.votes[group] || 0} - ${group} `)
           );
         }
       });
