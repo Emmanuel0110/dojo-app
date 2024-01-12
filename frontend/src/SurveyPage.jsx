@@ -9,6 +9,7 @@ function SurveyPage() {
   const [surveyId, setSurveyId] = useState("");
   const [results, setResults] = useState({});
   const [qrCodeVisible, setQrCodeVisible] = useState(false);
+  const [listOfOptions, setListOfOptions] = useState("");
 
   // TODO : try SSE
   // useEffect(() => {
@@ -68,13 +69,30 @@ function SurveyPage() {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then((results) => results && setResults(results));
+      .then((results) => {
+        if (results) {
+          setResults(results);
+          setListOfOptions((listOfOptions) =>
+            listOfOptions.replace(/\d*\s-\s([A-Z])/g, (match, group) => `${results.votes[group] || 0} - ${group}`)
+          );
+        }
+      });
+  };
+
+  const updateNumberOfOption = (e) => {
+    setNumberOfOptions(e.currentTarget.value.trim().split("\n").length.toString());
+    setListOfOptions(e.currentTarget.value);
   };
 
   return (
     <div id="surveyPage">
       <div id="subjectList" className="white-rounded-corners">
-        <textarea name="textarea" placeholder="Copy the vote options here..."></textarea>
+        <textarea
+          name="textarea"
+          onChange={updateNumberOfOption}
+          placeholder="Copy the vote options here..."
+          value={listOfOptions}
+        ></textarea>
       </div>
       <div id="qrCodeArea" className="white-rounded-corners">
         {surveyId === "" ? (
@@ -83,6 +101,7 @@ function SurveyPage() {
               onChange={(e) => setNumberOfOptions(e.currentTarget.value)}
               placeholder="Number of options"
               type="number"
+              value={numberOfOptions}
             />
             <br />
             <Button variant="primary" onClick={generateQRcode}>
