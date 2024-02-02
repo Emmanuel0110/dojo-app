@@ -112,6 +112,8 @@ function SurveyPage() {
               onChange={(e) => setNumberOfOptions(e.currentTarget.value)}
               placeholder="Number of options"
               type="number"
+              min="1"
+              max="26"
               value={numberOfOptions}
             />
             <br />
