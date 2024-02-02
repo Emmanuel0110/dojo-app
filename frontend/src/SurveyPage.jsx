@@ -80,7 +80,7 @@ function SurveyPage() {
   };
 
   const updateNumberOfOption = (e) => {
-    setNumberOfOptions(e.currentTarget.value.trim().split("\n").length.toString());
+    setNumberOfOptions(e.currentTarget.value.trim().split("\n").filter(line => line.trim() !== "").length.toString());
     setListOfOptions(e.currentTarget.value);
   };
 
