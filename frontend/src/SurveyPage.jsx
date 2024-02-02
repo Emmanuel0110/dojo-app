@@ -7,7 +7,7 @@ import { baseUrl } from "./App";
 function SurveyPage() {
   const [numberOfOptions, setNumberOfOptions] = useState("");
   const [surveyId, setSurveyId] = useState("");
-  const [results, setResults] = useState({numberVotes: 0, votes:{}});
+  const [results, setResults] = useState({ numberVotes: 0, votes: {} });
   const [qrCodeVisible, setQrCodeVisible] = useState(false);
   const [listOfOptions, setListOfOptions] = useState("");
 
@@ -71,16 +71,27 @@ function SurveyPage() {
       .then((response) => response.json())
       .then((results) => {
         if (results) {
-          setResults(results);
-          setListOfOptions((listOfOptions) =>
-            listOfOptions.replace(/\s\d+\s-\s([A-Z])\s/g, (match, group) => ` ${results.votes[group] || 0} - ${group} `)
-          );
+          setResults({ numberVotes: results.numberVotes, votes: results.votes || {} });
+          if (results.votes) {
+            setListOfOptions((listOfOptions) =>
+              listOfOptions.replace(
+                /\s\d+\s-\s([A-Z])\s/g,
+                (match, group) => ` ${results.votes[group] || 0} - ${group} `
+              )
+            );
+          }
         }
       });
   };
 
   const updateNumberOfOption = (e) => {
-    setNumberOfOptions(e.currentTarget.value.trim().split("\n").filter(line => line.trim() !== "").length.toString());
+    setNumberOfOptions(
+      e.currentTarget.value
+        .trim()
+        .split("\n")
+        .filter((line) => line.trim() !== "")
+        .length.toString()
+    );
     setListOfOptions(e.currentTarget.value);
   };
 
