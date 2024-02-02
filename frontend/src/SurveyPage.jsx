@@ -7,7 +7,7 @@ import { baseUrl } from "./App";
 function SurveyPage() {
   const [numberOfOptions, setNumberOfOptions] = useState("");
   const [surveyId, setSurveyId] = useState("");
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState({numberVotes: 0, votes:{}});
   const [qrCodeVisible, setQrCodeVisible] = useState(false);
   const [listOfOptions, setListOfOptions] = useState("");
 
@@ -133,7 +133,7 @@ function SurveyPage() {
         )}
         <div>
           <table>
-            {results.votes &&
+            {!qrCodeVisible &&
               Object.entries(results.votes).map((entry, index) => (
                 <tr key={index}>
                   <td style={{ width: "20px" }}>{entry[0]}</td>
