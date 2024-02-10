@@ -147,23 +147,31 @@ function SurveyPage() {
         <div>
           <table>
             {!qrCodeVisible &&
-              Object.entries(results.votes).map((entry, index) => (
-                <tr key={index}>
-                  <td style={{ width: "20px" }}>{entry[0]}</td>
-                  <td>
-                    <div
-                      style={{
-                        backgroundColor: "grey",
-                        width: `${entry[1] * (200 / Math.max(...Object.values(results.votes)))}px`,
-                        height: "30px",
-                        color: "white",
-                      }}
-                    >
-                      {entry[1]}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+              Object.entries(results.votes)
+                .sort(function (entryA, entryB) {
+                  if (entryA[0] < entryB[0]) {
+                    return -1;
+                  } else {
+                    return 1;
+                  }
+                })
+                .map((entry, index) => (
+                  <tr key={index}>
+                    <td style={{ width: "20px" }}>{entry[0]}</td>
+                    <td>
+                      <div
+                        style={{
+                          backgroundColor: "grey",
+                          width: `${entry[1] * (200 / Math.max(...Object.values(results.votes)))}px`,
+                          height: "30px",
+                          color: "white",
+                        }}
+                      >
+                        {entry[1]}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
           </table>
         </div>
       </div>
