@@ -13,5 +13,8 @@
     "express": "^4.18.2",
     "mongoose": "^8.0.1"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "prettier": "3.2.5"
+  }
 }
